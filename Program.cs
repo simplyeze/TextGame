@@ -2,12 +2,6 @@
 
 namespace TextGame
 {
-    //static IDictionary<Posizione, Stanza> ListaStanze = new Dictionary<Posizione, Stanza>();
-    //static Stack<Oggetto> Inventario = new Stack<Oggetto>();
-    //static Stanza stanzaAttuale = new Stanza();
-    //static int stanzeVisitate = 0;
-    //static Posizione posizioneAttuale = new Posizione();
-    
     /// <summary>
     /// LE FUNZIONI CHE SONO GIÀ PRONTE LE METTO DOPO IL MAIN PERCHÈ OLTRE A QUELLO NON C'È NULLA DI IMPORTANTE
     /// </summary>
@@ -18,8 +12,9 @@ namespace TextGame
     {
         static IDictionary<Posizione, Stanza> ListaStanze = new Dictionary<Posizione, Stanza>();
         static Stack<Oggetto> Inventario = new Stack<Oggetto>();
+        static List<Oggetto> OggettiGioco = new List<Oggetto>();
         static Stanza stanzaAttuale = new Stanza();
-        static int stanzeVisitate = 0;
+        static List<Posizione> stanzeVisitate = new List<Posizione>();
         static Posizione posizioneAttuale = new Posizione();
 
         public struct Posizione // COORDINATE DELLA POSIZIONE E COSTRUTTORE
@@ -84,37 +79,57 @@ namespace TextGame
             Stanza conLanterna = new Stanza("Ingresso alla tomba di Nandareth", "Non appena entri nella stanza, la nebbia si dirada istantaneamente, mostrandone le fattezze. Riconosci gli altorilievi incisi su i muri e capisci esattamente dove ti stai recando: e' l'ingresso della tomba di Nandareth.", false, false, false);
             Posizione posizioneConLanterna = new Posizione(1, 0);
 
-            Stanza tombaDiNandareth = new Stanza("nome","descrizione",false,false,false);
+            Stanza tombaDiNandareth = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneTombaDiNandareth = new Posizione(2, 0);
 
-            Stanza tombaDiNandarethNord = new Stanza("nome","descrizione",false,false,false);
+            Stanza tombaDiNandarethNord = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneTombaDiNandarethNord = new Posizione(2, 1);
 
-            Stanza tombaDiNandarethCerimonia = new Stanza("nome","descrizione",false,false,false);
+            Stanza tombaDiNandarethCerimonia = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneTombaDiNandarethCerimonia = new Posizione(3, 1);
 
-            Stanza tombaDiNandarethEst = new Stanza("nome","descrizione",false,false,false);
+            Stanza tombaDiNandarethEst = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneTombaDiNandarethEst = new Posizione(3, 0);
 
 
             // AREA 5
-            Stanza criptaMisteriosa = new Stanza("nome","descrizione",false,false,false);
+            Stanza criptaMisteriosa = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizionecriptaMisteriosa = new Posizione(3, -1);
 
-            Stanza criptaMisteriosaSud = new Stanza("nome","descrizione",false,false,false);
+            Stanza criptaMisteriosaSud = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizionecriptaMisteriosaSud = new Posizione(3, -2);
 
-            Stanza criptaMisteriosaEst = new Stanza("nome","descrizione",false,false,false);
-            Posizione posizionecriptaMisteriosaEst = new Posizione(4,-1);
+            Stanza criptaMisteriosaEst = new Stanza("nome", "descrizione", false, false, false);
+            Posizione posizionecriptaMisteriosaEst = new Posizione(4, -1);
 
-            Stanza criptaMisteriosaAtrioFinale = new Stanza("nome","descrizione",false,false,false);
+            Stanza criptaMisteriosaAtrioFinale = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizionecriptaMisteriosaAtrioFinale = new Posizione(4, -2);
 
-            Stanza stanzaDelTesoro = new Stanza("nome","descrizione",false,false,false);
+            Stanza stanzaDelTesoro = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneStanzaDelTesoro = new Posizione(4, -3);
-            
-            Stanza stanzaDiNandareth = new Stanza("nome","descrizione",false,false,false);
+
+            Stanza stanzaDiNandareth = new Stanza("nome", "descrizione", false, false, false);
             Posizione posizioneStanzaDiNandareth = new Posizione(5, -2);
+
+            Oggetto oggettoChiaveFinale = new Oggetto("LIGHT", "serve per poter danneggiare il boss", 0, false);
+
+            // SPAWN DEI PERSONAGGI: BUONO; CATTIVO; TIPI DI NEMICI
+            Personaggio personaggioBuono = new Personaggio("Arcangelo Incatenato", "", true, true, oggettoChiaveFinale);
+            Random spawn = new Random();
+            posizioneAttuale.X = spawn.Next(-1, 4);
+            posizioneAttuale.Y = spawn.Next(-2, 3);
+            if (ListaStanze.ContainsKey(posizioneAttuale))
+            {
+                ListaStanze[posizioneAttuale].npc.Add(personaggioBuono);
+            }
+            else
+            {
+                ListaStanze[posizioneTombaOrnata].npc.Add(personaggioBuono);
+            }
+
+            Personaggio personaggioCattivo = new Personaggio("Belphagor", "descrizione", true, false, null);
+            Nemico scheletro = new("Scheletro", "Uno scheletro risorto, armato con una spada arruginita. Dal suo teschio protrudono due affilate corna.", false, false, null, 5, 2);
+            Nemico statuaAnimata = new("Statua Animata", "Una delle statue decorative della tomba ha preso vita. Che si tratti di una strana creatura o di un sortilegio volto a scacciare chi profana questo sepolcro?", false, false, null, 3, 5);
 
 
             posizioneAttuale = posizioneIngressoCripta;
@@ -341,10 +356,11 @@ namespace TextGame
             }
             Console.ReadKey();
         }
-        public static void Teletrasporto()
-        { // FUNZIONE PER IL TELETRASPORTO
-            Random random = new Random();
-            random.Next();
+        public static void Teletrasporto()// FUNZIONE PER IL TELETRASPORTO Nella lista di stanze già visitate ne scelgo una random
+        {
+            Random fuga = new Random();
+            posizioneAttuale = stanzeVisitate[fuga.Next(stanzeVisitate.Count)];
+            // SPOSTARE IL GIOCATORE
         }
         public static void Salvataggio(Giocatore giocatore) // FUNZIONE PER IL SALVATAGGIO
         {
@@ -402,7 +418,7 @@ namespace TextGame
             //bool nuovaPartita = false;
             Giocatore giocatore = new Giocatore();
             //stanzaAttuale = ListaStanze[posizioneIngressoCripta];
-            
+
             // TESTO INTRODUTTIVO
             Console.WriteLine("TESTO INTRODUTTIVO ------------------------------------------------------------------------------\n");
 
@@ -412,8 +428,8 @@ namespace TextGame
             string input = Console.ReadLine();
             if (input == "" || input == null)
             {
-                Console.WriteLine("Va bene, tieniti pure i tuoi segreti \n");
-                giocatore.nome = input;
+                Console.WriteLine("Va bene, tieniti pure i tuoi segreti, STRANIERO \n");
+                giocatore.nome = "STRANIERO";
             }
 
             Console.WriteLine("Menù della partita");
@@ -444,8 +460,8 @@ namespace TextGame
                         break;
                 }
             }
-            
-            while (giocatore.vita>0) Partita();
+
+            while (giocatore.vita > 0) Partita();
         }
 
         public static void Testo(string testo, int attesa = 12) // FUNZIONE CON IL TESTO DA SCRIVERE A SCHERMO
