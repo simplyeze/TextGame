@@ -269,15 +269,14 @@ namespace TextGame
                     // se è presente una stanza con quelle coordinate posso avanzare
                     if (listaStanze.ContainsKey(nuovaNord))  
                     {
+                        listaStanze[nuovaNord].Nebbia(giocatore);
                         // controllo se è accessibile senza chiavi
                         if (listaStanze[nuovaNord].chiave)
                         {
                             // controllo se il giocatore ha la chiave
-                            //if(giocatore.inventario.Contains(Oggetto chiave)
-                            //else { }
+                            
                             Console.WriteLine("Non hai la chiave per entrare, mi spiace");
                             Console.ReadLine();
-
                         }
                         else
                         {
@@ -308,6 +307,7 @@ namespace TextGame
                     Posizione nuovaEst = new Posizione(posizioneAttuale.X + 1, posizioneAttuale.Y);
                     if (listaStanze.ContainsKey(nuovaEst))
                     {
+                        listaStanze[nuovaEst].Nebbia(giocatore);
                         // controllo se è accessibile
                         if (!listaStanze[nuovaEst].chiave)
                         {
@@ -343,6 +343,7 @@ namespace TextGame
                     Posizione nuovaOvest = new Posizione(posizioneAttuale.X - 1, posizioneAttuale.Y);
                     if (listaStanze.ContainsKey(nuovaOvest))
                     {
+                        listaStanze[nuovaOvest].Nebbia(giocatore);
                         // controllo se è accessibile
                         if (!listaStanze[nuovaOvest].chiave)
                         {
@@ -377,6 +378,7 @@ namespace TextGame
                     Posizione nuovaSud = new Posizione(posizioneAttuale.X, posizioneAttuale.Y - 1);
                     if (listaStanze.ContainsKey(nuovaSud))
                     {
+                        listaStanze[nuovaSud].Nebbia(giocatore);
                         // controllo se è accessibile
                         if (!listaStanze[nuovaSud].chiave)
                         {
@@ -487,8 +489,7 @@ namespace TextGame
             Posizione posizioneCappella = new Posizione(-1, 3);
 
             // STANZE AREA 4 
-            Stanza senzaLanterna = new Stanza("???", "La stanza e' ricoperta da una fitta nebbia, che ti impedisce di vedere a un palmo dal tuo naso. Forse sarebbe meglio tornare indietro.", false, false, false);
-            Stanza conLanterna = new Stanza("Ingresso alla tomba di Nandareth", "Non appena entri nella stanza, la nebbia si dirada istantaneamente, mostrandone le fattezze. Riconosci gli altorilievi incisi su i muri e capisci esattamente dove ti stai recando: e' l'ingresso della tomba di Nandareth.", false, false, false);
+            Stanza Lanterna = new Stanza("???", "La stanza e' ricoperta da una fitta nebbia, che ti impedisce di vedere a un palmo dal tuo naso. Forse sarebbe meglio tornare indietro.", false, false, false);
             Stanza tombaDiNandareth = new Stanza("Tomba di Nandareth - Entrata", "L'ambiente tetro ti da un senso di angoscia che non riesci a spiegare. Tutte le pareti della stanza sono piene fino all'orlo di bassorilievi rappresentanti demoni, diavoli e persone sofferenti all'unisono.", false, false, false);
             Stanza tombaDiNandarethNord = new Stanza("Tomba di Nandareth - Zona Nord", "Continuo della tomba. Vicino i muri vi sono varie armature arruginite, come se fossero a guardia di qualcosa.", false, false, false);
             Stanza tombaDiNandarethCerimonia = new Stanza("Tomba di Nandareth - Zona Cerimoniale", "Una stanza semi-nascosta, con all'interno un piccolo altare. Sopra di esso vi sono alcuni rotoli di papiro con sopra iscritte alcune strane formule magiche.", false, false, false);
@@ -534,12 +535,13 @@ namespace TextGame
 
             // ASSEGNAZIONE OGGETTI E PERSONAGGI ALLE STANZE
             ingressoCripta.oggettiPresenti.Add(sasso);
+            ingressoCripta.oggettiPresenti.Add(lanterna);
             //ingressoCripta.AddPersonaggio(scheletro);
             //ingressoCripta.AddPersonaggio(bossFinale);
             ingressoCripta.spell = 1;
             ingressoOssuarioDemoni.spell = 2;
             OssuarioDemoni.spell = 3;
-            conLanterna.Nebbia(giocatore, lanterna);
+            Lanterna.Nebbia(giocatore);
 
             // LISTA COORDINATE 
             giocatore.stanzeVisitate.Add(posizioneIngressoCripta);
@@ -583,7 +585,7 @@ namespace TextGame
             listaStanze.Add(posizioneTombeDeiDiavoliOvest, tombeDeiDiavoliOvest);
             listaStanze.Add(posizioneTombeDeiDiavoliNord, tombeDeiDiavoliNord);
             listaStanze.Add(posizioneCappella, Cappella);
-            listaStanze.Add(posizioneConLanterna, conLanterna);
+            listaStanze.Add(posizioneConLanterna, Lanterna);
             listaStanze.Add(posizioneTombaDiNandareth, tombaDiNandareth);
             listaStanze.Add(posizioneTombaDiNandarethNord, tombaDiNandarethNord);
             listaStanze.Add(posizioneTombaDiNandarethCerimonia, tombaDiNandarethCerimonia);

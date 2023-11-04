@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
+using TextGame;
 
 namespace TextGame
 {
@@ -15,6 +16,7 @@ namespace TextGame
         public bool combattimento;
         public bool visitata;
         public bool chiave;
+        public Oggetto lanternina = new Oggetto("Lanterna delle nebbie", "", 2, true);
         public int spell;
         public List<Personaggio> npc = new List<Personaggio>();
         public List<Oggetto> oggettiPresenti = new List<Oggetto>();
@@ -185,16 +187,23 @@ namespace TextGame
             }
         }
 
-        public void Nebbia(Giocatore p, Oggetto lanterna)
+        public void Nebbia(Giocatore p)
         {
-            if (p.inventario.Contains(lanterna))
+            if (p.inventario.Count() >= 0)
             {
-                this.nome = "???";
-                this.descrizione = "La stanza è ricoperta da una fitta nebbia, che ti impedisce di vedere a un palmo dal tuo naso. Forse sarebbe meglio tornare indietro.";
-                this.combattimento = false;
-                this.visitata = false;
-                this.chiave = true;
-                this.spell = 0;
+                foreach (Oggetto o in p.inventario)
+                {
+                    Oggetto temp = o;
+                    if (o.nome == lanternina.nome)
+                    {
+                        this.nome = "Ingresso alla tomba di Nandareth";
+                        this.descrizione = "Non appena entri nella stanza, la nebbia si dirada istantaneamente, mostrandone le fattezze. Riconosci gli altorilievi incisi su i muri e capisci esattamente dove ti stai recando: e' l'ingresso della tomba di Nandareth.";
+                        this.combattimento = false;
+                        this.visitata = false;
+                        this.chiave = false;
+                        this.spell = 0;
+                    }
+                }
             }
         }
 
