@@ -7,5 +7,8 @@ namespace TextGame
 {
     public class OggettoChiave : Oggetto
     {
+        public OggettoChiave(string nome, string descrizione, int peso, bool pickup) : base(nome, descrizione, peso, pickup)
+        {
+        }
     }
 }

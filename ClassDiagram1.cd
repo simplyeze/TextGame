@@ -3,32 +3,38 @@
   <Class Name="TextGame.Oggetto">
     <Position X="6.75" Y="1" Width="2" />
     <TypeIdentifier>
-      <HashCode>AQACAEAQAAAAAAIAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAAEAQAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Oggetto.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Personaggio" />
-      <Property Name="Stanza" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="TextGame.Stanza">
     <Position X="3.75" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="TextGame.Stanza.incantesimo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Stanza.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AQgAAAAYAAAAAAAAAAAEAAAAAAAAAAAAAAAQIAAAAAA=</HashCode>
+      <HashCode>AQgAAAAYAAAIAAFAAAAEACAAAAAAAEAAAQCQAAAAAAA=</HashCode>
       <FileName>Stanza.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextGame.Personaggio">
     <Position X="9.75" Y="1" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AQAAABAQCAAQAAAAAAAAAAAAEAAAAAQAAEAAAAAAAAA=</HashCode>
+      <HashCode>AQAAABAQCAAQAAAAAAAIAAAAEAAAAAQAAEAAAAAAAAA=</HashCode>
       <FileName>Personaggio.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TextGame.Giocatore">
     <Position X="9.75" Y="4.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAA=</HashCode>
+      <HashCode>AAAEAAAAAAQAAAAAAAAQAAAAAAAABAAAAAAAFAIAAAA=</HashCode>
       <FileName>Giocatore.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -37,6 +43,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>OggettoChiave.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextGame.SaveLoad">
+    <Position X="12" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SaveLoad.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
